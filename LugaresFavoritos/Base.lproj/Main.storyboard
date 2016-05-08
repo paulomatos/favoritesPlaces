@@ -54,6 +54,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="0hG-Wu-zIu"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -65,7 +68,7 @@
                         <barButtonItem key="backBarButtonItem" title="Voltar" id="6Rg-rc-tLd"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Sh0-FE-1mx">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="EoM-bF-sHJ"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="newPlace" id="EoM-bF-sHJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -91,4 +94,7 @@
             <point key="canvasLocation" x="-1213" y="429"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EoM-bF-sHJ"/>
+    </inferredMetricsTieBreakers>
 </document>

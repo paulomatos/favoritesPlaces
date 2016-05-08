@@ -10,6 +10,8 @@ import UIKit
 
 var places = [Dictionary<String, String>()]
 
+var activePlace = -1
+
 class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -17,8 +19,8 @@ class TableViewController: UITableViewController {
         
         if places.count == 1 {
             
-            places.removeAtIndex(0)
-            
+            places.removeFirst()
+
             places.append(["name":"Pentecoste", "lat":"-3.790711", "lon":"-39.273308"])
         }
    
@@ -27,6 +29,14 @@ class TableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "newPlace" {
+            activePlace = -1
+        }
     }
 
     // MARK: - Table view data source
@@ -38,18 +48,29 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return places.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-            cell.textLabel?.text = places[indexPath.row] ["name"]
+            cell.textLabel?.text = places[indexPath.row]["name"]
         
         return cell
     }
     
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        activePlace = indexPath.row
+        
+        return indexPath
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
 
     /*
     // Override to support conditional editing of the table view.

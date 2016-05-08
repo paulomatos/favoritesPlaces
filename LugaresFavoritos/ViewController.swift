@@ -22,6 +22,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager = CLLocationManager()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if activePlace == -1 {
+            
+            manager.requestWhenInUseAuthorization()
+            manager.startUpdatingLocation()
+        
+        } else {
+            
+            let latitude = NSString(string: places[activePlace]["lat"]!).doubleValue
+            
+            let longitude = NSString(string: places[activePlace]["lon"]!).doubleValue
+            
+            let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+            let latDelta: CLLocationDegrees = 0.01
+            let lonDelta: CLLocationDegrees = 0.01
+            let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+            let region: MKCoordinateRegion = MKCoordinateRegionMake(coordinate, span)
+            self.map.setRegion(region, animated: true)
+            
+            let annotation = MKPointAnnotation()
+            
+            annotation.coordinate = coordinate
+            annotation.title = places[activePlace]["name"]
+            
+            self.map.addAnnotation(annotation)
+
+
+        }
+        
+        
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
         
@@ -91,13 +121,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation: CLLocation = locations[0]
-        let latitute = userLocation.coordinate.latitude
+        let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
-        let coordinate = CLLocationCoordinate2DMake(latitute, longitude)
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
         let latDelta: CLLocationDegrees = 0.01
         let lonDelta: CLLocationDegrees = 0.01
         let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
