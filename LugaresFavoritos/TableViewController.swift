@@ -19,7 +19,7 @@ class TableViewController: UITableViewController {
             
             places.removeAtIndex(0)
             
-            places.append(["name":"Taj Mahal", "lat":"27.175277", "lon":"78.042128"])
+            places.append(["name":"Pentecoste", "lat":"-3.790711", "lon":"-39.273308"])
         }
    
     }
@@ -45,7 +45,7 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-            cell.textLabel?.text = places[indexPath.row]["name"]
+            cell.textLabel?.text = places[indexPath.row] ["name"]
         
         return cell
     }
